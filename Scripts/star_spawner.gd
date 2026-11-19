@@ -21,9 +21,8 @@ func _process(_delta: float) -> void:
 		#Sampling from a normal distribution
 		if ry < 0.5 and ry != 0:
 			ypos += 90*sqrt(-log(2*ry))
-			ypos = max(ypos, ymax)
+			ypos = min(ypos, ymax)
 		if ry > 0.5 and ry != 1:
 			ypos += -90 * sqrt(-log(2 - 2 * ry))
-			ypos = min(ypos, ymin)
-		ypos = clampf(ypos, ymin, ymax)
+			ypos = max(ypos, ymin)
 		instance.global_position = Vector2(rx - xlim / 2, ymax / 2 - ypos)
