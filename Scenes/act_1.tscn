@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ctj6m20b8td54" path="res://Sprites/Stages/Act I/act I VERY ROUGH draft.png" id="2_epypp"]
 [ext_resource type="Texture2D" uid="uid://ols1ltlpxca0" path="res://Sprites/Stages/Act I/Foreground.png" id="3_0hol4"]
 [ext_resource type="PackedScene" uid="uid://dftrpkfy22rxb" path="res://Scenes/player.tscn" id="4_3wpqw"]
+[ext_resource type="Texture2D" uid="uid://ct8q62n5nkhrg" path="res://Sprites/Stages/Act I/trees.png" id="5_l8fhs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uq3xw"]
 
@@ -21,7 +22,7 @@ texture_filter = 1
 texture = ExtResource("2_epypp")
 
 [node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1459537928]
-z_index = 2
+z_index = 3
 texture = ExtResource("3_0hol4")
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=204870766]
@@ -46,3 +47,8 @@ scale = Vector2(1, 54)
 shape = SubResource("RectangleShape2D_uq3xw")
 
 [node name="Player" parent="." unique_id=1348164110 instance=ExtResource("4_3wpqw")]
+z_index = 99
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1630844035]
+z_index = 2
+texture = ExtResource("5_l8fhs")
