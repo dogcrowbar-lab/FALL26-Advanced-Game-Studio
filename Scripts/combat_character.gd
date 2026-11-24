@@ -8,7 +8,20 @@ class_name CombatCharacter extends CharacterBody2D
 @export var mass: float = 50.0
 @export var experiences_gravity: bool = true
 
+@export var disabled := false:
+	set(v):
+		disabled = v
+		process_mode = PROCESS_MODE_DISABLED if v else PROCESS_MODE_PAUSABLE
+		visible = not v
+
+@export var spotlight: SpotLight
+
 var last_safe_positions: Array[Vector2]
+
+
+func _ready() -> void:
+	spotlight.reparent.call_deferred(get_tree().current_scene)
+	spotlight.target = self
 
 
 func _physics_process(_delta: float) -> void:

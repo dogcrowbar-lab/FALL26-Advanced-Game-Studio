@@ -13,6 +13,8 @@ var current_wave: int
 var amount_defeated: int
 var completed_arena: bool = false
 
+@onready var player_ref: Player = get_tree().get_first_node_in_group("Player")
+
 
 func _ready() -> void:
 	for wave_idx: int in $Waves.get_child_count():
@@ -20,11 +22,12 @@ func _ready() -> void:
 			if wave_idx > waves.size() - 1:
 				waves.append([])
 			waves[wave_idx].append(enemy)
+			enemy.disabled = true
 	
 	for wave: Array in waves:
 		for enemy: Enemy in wave:
 			enemy.arena = self
-			#enemy.disabled = true
+			enemy.disabled = true
 
 
 func start_arena(player: Player):
@@ -33,8 +36,8 @@ func start_arena(player: Player):
 	
 	player.arena = self
 	
-	for wall: StaticBody2D in get_node("Walls").get_children():
-		wall.get_child(0).set_deferred("disabled", false)
+	#for wall: StaticBody2D in get_node("Walls").get_children():
+		#wall.get_child(0).set_deferred("disabled", false)
 	
 	for wave_idx: int in waves.size():
 		current_wave = wave_idx
@@ -49,8 +52,8 @@ func start_arena(player: Player):
 		
 		await wave_cleared
 	
-	for wall: StaticBody2D in get_node("Walls").get_children():
-		wall.get_child(0).set_deferred("disabled", true)
+	#for wall: StaticBody2D in get_node("Walls").get_children():
+		#wall.get_child(0).set_deferred("disabled", true)
 	
 	player.arena = null
 	completed_arena = true
@@ -61,3 +64,7 @@ func enemy_dead():
 	if amount_defeated >= waves[current_wave].size():
 		wave_cleared.emit()
 		amount_defeated = 0
+
+
+func _on_body_entered(body: Node2D) -> void:
+	start_arena(player_ref)
